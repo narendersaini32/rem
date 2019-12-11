@@ -1,0 +1,32 @@
+.custom-input-container {
+    position: relative;
+    .custom-input {
+        margin: 20px 20px 20px 0;
+        height: 48px;
+        border: 0;
+        background-color: @input-color;
+        width: 250px;
+        padding: 20px;
+        font-size: 16px;
+
+        &:active,
+        &:focus {
+            outline: none;
+        }
+
+        &::placeholder {
+            color: @light-black;
+        }
+    }
+
+    .eye-icon {
+        width: 15px;
+        height: 15px;
+        background-size: 15px, 15px;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        right: 36px;
+        top: 36px;
+        position: absolute;
+    }
+}

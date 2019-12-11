@@ -1,0 +1,43 @@
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .search {
+        width: 18px;
+        height: 18px;
+        background-repeat: no-repeat;
+        background-size: 18px, 18px;
+        position: absolute;
+        top: 11px;
+        left: 20px;
+        cursor: pointer;
+    }
+
+    input {
+        background-color: @white;
+        border-radius: 30px;
+        border: 0;
+        height: 40px;
+        width: 400px;
+        padding: 5px 5px 5px 50px;
+        font-size: 16px;
+        font-weight: 500;
+
+        &:active,
+        &:focus {
+            outline: none;
+        }
+
+        &::placeholder {
+            color: @dim-black;
+        }
+    }
+}
+
+.advanced {
+    font-weight: 600;
+    margin-left: 40px;
+    cursor: pointer;
+    user-select: none;
+}

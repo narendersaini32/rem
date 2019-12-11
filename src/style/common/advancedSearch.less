@@ -1,0 +1,61 @@
+.advanced-search {
+    background-color: @dark;
+    position: absolute;
+    top: 75px;
+    z-index: 1;
+    left: 100px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+
+    .text-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .advanced {
+            margin-left: unset;
+        }
+
+        .close-icon {
+            width: 15px;
+            height: 15px;
+            background-size: 15px, 15px;
+            background-repeat: no-repeat;
+            cursor: pointer;
+        }
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .address-field {
+        margin: 30px 0 0 0;
+    }
+
+    .year-slider {
+
+        .input-range {
+            width: 250px;
+            margin-top: 20px;
+        }
+    }
+    button{
+        height: 35px;
+        width: 250px;
+        margin-left: 20px;
+        border: 0;
+        background-color: @dark-blue;
+        color:@white;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        &:hover{
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.26), 0px 2px 10px rgba(0, 0, 0, 0.16);
+        }
+        &:active{
+            box-shadow: unset;
+        }
+    }
+}

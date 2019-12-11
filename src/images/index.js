@@ -1,0 +1,14 @@
+export { default as LetCapSVG } from './letCap.svg';
+export { default as LogoLSvg } from './logoL.svg';
+export { default as CorpSvg } from './corp.svg';
+export { default as SearchSvg } from './search.svg';
+export { default as MenuSvg } from './menu.svg';
+export { default as InvertedLogoSvg } from './invertedLogo.svg';
+export { default as InfoSvg } from './info.svg';
+export { default as AnalyticsSvg } from './analytics.svg';
+export { default as SaveSvg } from './save.svg';
+export { default as ArrowSvg } from './arrow.svg';
+export { default as LoadingSvg } from './loading.svg';
+export { default as CloseSvg } from './close.svg';
+export { default as EyeSvg } from './eye.svg';
+export { default as OrangeMarkerSvg } from './orangeMarker.svg';
