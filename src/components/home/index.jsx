@@ -6,7 +6,7 @@ import {
 } from '../common';
 
 export class Home extends Component {
-    state={ coordsList: [], sidebar: false };
+    state={ coordsList: [], sidebar: false, loading: false };
 
     getProperties = (data) => {
       this.setState({ loading: true });

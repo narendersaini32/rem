@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Image } from './image';
 import { InfoSvg, AnalyticsSvg, SaveSvg } from '../../images';
+import { TEXT } from '../../local/text';
 
+const { COUNTY, PROPERTY_NAME, PROPERTY_ID } = TEXT;
 export class PropertyCard extends Component {
     state={};
 
@@ -54,7 +56,7 @@ PropertyCard.propTypes = {
 };
 
 PropertyCard.defaultProps = {
-  county: 'County',
-  propertyID: 'Property Id',
-  propertyName: 'Property Name',
+  county: COUNTY,
+  propertyID: PROPERTY_ID,
+  propertyName: PROPERTY_NAME,
 };

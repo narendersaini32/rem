@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { SearchSvg, LoadingSvg } from '../../images';
+import { TEXT } from '../../local/text';
+
+const { ADVANCED_SEARCH, SEARCH_ANYTHING } = TEXT;
 
 export class SearchBar extends Component {
   constructor(props) {
@@ -13,7 +16,7 @@ export class SearchBar extends Component {
     const { current: { value } } = this.searchInput;
     if (value) {
       const { getProperties } = this.props;
-      const county = 'LOMMA';
+      const county = 'LOMMA'; // will be dynamic in future
       const data = { name: value, county };
       getProperties(data);
     }
@@ -29,7 +32,7 @@ export class SearchBar extends Component {
           onClick={this.handleSearch}
         />
         <input
-          placeholder="SEARCH ANYTHING"
+          placeholder={SEARCH_ANYTHING}
           ref={this.searchInput}
           onKeyPress={({ key }) => { if (key === 'Enter') this.handleSearch(); }}
         />
@@ -37,7 +40,7 @@ export class SearchBar extends Component {
           className="advanced"
           onClick={toggleAdvancedSearch}
         >
-            ADVANCED SEARCH
+          {ADVANCED_SEARCH}
         </div>
       </div>
     );

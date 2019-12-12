@@ -4,8 +4,13 @@ import InputRange from 'react-input-range';
 
 import { CloseSvg } from '../../images';
 import { Input } from './input';
+import { TEXT } from '../../local/text';
 import 'react-input-range/lib/css/index.css';
 
+const {
+  POSTAL_CODE, PROPERTY_ID, PROPERTY_NAME,
+  STREET_ADRESS, CITY, ARTAL, SEARCH, ADRESS_FIELDS, ADVANCED_SEARCH,
+} = TEXT;
 export class AdvancedSearch extends Component {
     state = { year: { min: 1989, max: 2008 } }
 
@@ -17,7 +22,7 @@ export class AdvancedSearch extends Component {
           className="advanced-search"
         >
           <div className="text-wrapper">
-            <div className="advanced">ADVANCED SEARCH</div>
+            <div className="advanced">{ADVANCED_SEARCH}</div>
             <div
               className="close-icon"
               style={{ backgroundImage: `url(${CloseSvg})` }}
@@ -27,21 +32,21 @@ export class AdvancedSearch extends Component {
 
           <div className="input-container">
             <Input
-              placeholder="PropertyID"
+              placeholder={PROPERTY_ID}
             />
             <Input
-              placeholder="Property Name"
+              placeholder={PROPERTY_NAME}
             />
           </div>
           <div className="address-field">
-              Adress Fields
+            {ADRESS_FIELDS}
           </div>
           <div className="input-container">
             <Input
-              placeholder="Street Adress"
+              placeholder={STREET_ADRESS}
             />
             <Input
-              placeholder="Postal Code"
+              placeholder={POSTAL_CODE}
             />
           </div>
           <div className="input-container">
@@ -49,13 +54,13 @@ export class AdvancedSearch extends Component {
               placeholder="District name"
             />
             <Input
-              placeholder="City"
+              placeholder={CITY}
             />
           </div>
           <div className="input-container">
             <div className="year-slider">
               <div>
-              Årtal
+                {ARTAL}
               </div>
               <InputRange
                 maxValue={new Date().getFullYear()}
@@ -64,7 +69,7 @@ export class AdvancedSearch extends Component {
                 onChange={(value) => this.setState({ year: value })}
               />
             </div>
-            <button>SEARCH</button>
+            <button>{SEARCH}</button>
           </div>
         </div>
       );

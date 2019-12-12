@@ -1,0 +1,16 @@
+export const TEXT = {
+  SEARCH_ANYTHING: 'SEARCH ANYTHING',
+  ADVANCED_SEARCH: 'ADVANCED SEARCH',
+  SEARCH_RESULT: 'SEARCH RESULT',
+  NO_RESULT: 'No Result',
+  PROPERTY_ID: 'PropertyID',
+  PROPERTY_NAME: 'Property Name',
+  ADRESS_FIELDS: 'Adress Fields',
+  STREET_ADRESS: 'Street Adress',
+  POSTAL_CODE: 'Postal Code',
+  DISTRICT_NAME: 'District Name',
+  CITY: 'City',
+  ARTAL: 'Årtal',
+  SEARCH: 'SEARCH',
+  COUNTY: 'County',
+};
