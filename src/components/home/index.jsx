@@ -34,6 +34,7 @@ export class Home extends Component {
           <div className="container">
             <OpenMap
               mapClass="open-map"
+              coordsList={coordsList}
             />
             <Sidebar
               coordsList={coordsList}
