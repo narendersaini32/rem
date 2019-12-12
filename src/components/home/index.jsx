@@ -11,7 +11,7 @@ export class Home extends Component {
     getProperties = (data) => {
       this.setState({ loading: true });
       search(data, ({ result: coordsList }) => {
-        const state = { loading: false, sidebar: true };
+        const state = { loading: false, sidebar: true, coordsList: [] };
         if (coordsList) {
           state.coordsList = coordsList;
         }
