@@ -7,6 +7,7 @@ import { OrangeMarkerSvg } from '../../images';
 const accessToken = 'pk.eyJ1IjoibmFyZW5kZXJzYWluaTMyIiwiYSI6ImNrNDJqZGt2ejAwemMzbW81Z280dDlmaWYifQ.gjQktVQZoAlkoPEaasSeew';
 
 let map;
+let markers;
 const orangeIcon = L.icon({
   iconUrl: OrangeMarkerSvg,
   iconSize: [30, 30],
@@ -46,9 +47,14 @@ export class OpenMap extends Component {
   }
 
   addMarkers = (coordsList) => {
-    coordsList.forEach(({ pinLat: lat, pinLon: lng }) => {
-      L.marker([lat, lng], { icon: orangeIcon }).addTo(map);
-    });
+    if (!coordsList.length && markers) {
+      markers.forEach((marker) => {
+        map.removeLayer(marker);
+      });
+    }
+    markers = coordsList.map((
+      { pinLat: lat, pinLon: lng },
+    ) => L.marker([lat, lng], { icon: orangeIcon }).addTo(map));
     if (coordsList.length) {
       const center = [coordsList[0].pinLat, coordsList[0].pinLon];
       map.flyTo(center);
