@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 
 import { OrangeMarkerSvg } from '../../images';
+import { KEYS } from '../../keys';
 
-const accessToken = 'pk.eyJ1IjoibmFyZW5kZXJzYWluaTMyIiwiYSI6ImNrNDJqZGt2ejAwemMzbW81Z280dDlmaWYifQ.gjQktVQZoAlkoPEaasSeew';
+const { ACCESS_KEY } = KEYS;
 
 let map;
 let markers;
@@ -37,7 +38,7 @@ export class OpenMap extends Component {
       center = [coordsList[0].pinLat, coordsList[0].pinLon];
     }
     map = L.map(mapId).setView(center, 13);
-    L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${accessToken}`, {
+    L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${ACCESS_KEY}`, {
       attribution: '',
       maxZoom: 18,
       id: 'mapbox/streets-v11',
