@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { search } from '../../modal';
 import {
-  GoogleMap, Header, Footer, Sidebar,
+  OpenMap, Header, Footer, Sidebar,
 } from '../common';
 
 export class Home extends Component {
@@ -32,10 +32,8 @@ export class Home extends Component {
             loading={loading}
           />
           <div className="container">
-            <GoogleMap
-              containerClass="google-map-container"
-              mapClass="google-map"
-              coordsList={coordsList}
+            <OpenMap
+              mapClass="open-map"
             />
             <Sidebar
               coordsList={coordsList}
