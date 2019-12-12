@@ -11,6 +11,7 @@ const {
   POSTAL_CODE, PROPERTY_ID, PROPERTY_NAME,
   STREET_ADRESS, CITY, ARTAL, SEARCH, ADRESS_FIELDS, ADVANCED_SEARCH,
 } = TEXT;
+
 export class AdvancedSearch extends Component {
     state = { year: { min: 1989, max: 2008 } }
 
