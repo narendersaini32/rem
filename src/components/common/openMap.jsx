@@ -48,7 +48,7 @@ export class OpenMap extends Component {
   }
 
   addMarkers = (coordsList) => {
-    if (!coordsList.length && markers) {
+    if (markers) {
       markers.forEach((marker) => {
         map.removeLayer(marker);
       });
