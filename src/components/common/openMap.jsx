@@ -20,14 +20,20 @@ const orangeMarkerIcon = L.icon({
   popupAnchor: [-3, -76],
 });
 
-const orangeCircleIcon = L.icon({
-  iconUrl: OrangeCircleSvg,
-  iconSize: [30, 30],
-  shadowSize: [50, 64],
-  iconAnchor: [22, 94],
-  shadowAnchor: [4, 62],
-  popupAnchor: [-3, -76],
-});
+const orangeCircleIcon = (coordsList = []) => {
+  let iconSize = ((30 * coordsList.length) / 90) + 30;
+  iconSize = iconSize < 30 ? 30 : iconSize;
+  return L.icon({
+    iconUrl: OrangeCircleSvg,
+    iconSize: [iconSize || 30, iconSize || 30],
+    shadowSize: [50, 64],
+    iconAnchor: [22, 94],
+    shadowAnchor: [4, 62],
+    popupAnchor: [-3, -76],
+  });
+};
+
+
 export class OpenMap extends Component {
   state = {};
 
@@ -70,13 +76,13 @@ export class OpenMap extends Component {
     }
   }
 
-goToCenter = () => {
-  const { coordsList } = this.props;
-  if (coordsList.length) {
-    const center = [coordsList[0].pinLat, coordsList[0].pinLon];
-    map.flyTo(center);
+  goToCenter = () => {
+    const { coordsList } = this.props;
+    if (coordsList.length) {
+      const center = [coordsList[0].pinLat, coordsList[0].pinLon];
+      map.flyTo(center);
+    }
   }
-}
 
   addMarkers = (coordsList) => {
     const zoomLevel = map.getZoom();
@@ -94,7 +100,7 @@ goToCenter = () => {
       ) => L.marker([lat, lng], { icon: orangeMarkerIcon }).addTo(map));
     } else if (coordsList.length) {
       orangeMarker = L.marker(
-        [coordsList[0].pinLat, coordsList[0].pinLon], { icon: orangeCircleIcon },
+        [coordsList[0].pinLat, coordsList[0].pinLon], { icon: orangeCircleIcon(coordsList) },
       ).addTo(map);
     }
   }
