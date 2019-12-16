@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
+import geoCenter from 'geographic-center';
 
 import { OrangeMarkerSvg, OrangeCircleSvg } from '../../images';
 import { KEYS } from '../../keys';
@@ -100,9 +101,19 @@ export class OpenMap extends Component {
       ) => L.marker([lat, lng], { icon: orangeMarkerIcon }).addTo(map));
     } else if (coordsList.length) {
       orangeMarker = L.marker(
-        [coordsList[0].pinLat, coordsList[0].pinLon], { icon: orangeCircleIcon(coordsList) },
+        this.findCenter(), { icon: orangeCircleIcon(coordsList) },
       ).addTo(map);
     }
+  }
+
+  findCenter = () => {
+    const { initialCoords, coordsList } = this.props;
+    if (!coordsList.length) {
+      return initialCoords;
+    }
+    const center = geoCenter(coordsList.map(({ pinLat: lat, pinLon: lon }) => ({ lat, lon })));
+    console.log('TCL: findCenter -> center', center);
+    return center;
   }
 
   render() {
