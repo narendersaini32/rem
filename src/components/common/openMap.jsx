@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 
-import { OrangeMarkerSvg } from '../../images';
+import { OrangeMarkerSvg, OrangeCircleSvg } from '../../images';
 import { KEYS } from '../../keys';
 
 const { ACCESS_KEY } = KEYS;
 
 let map;
 let markers;
-const orangeIcon = L.icon({
+let orangeMarker;
+let lastZoom;
+const orangeMarkerIcon = L.icon({
   iconUrl: OrangeMarkerSvg,
   iconSize: [30, 30],
   shadowSize: [50, 64],
@@ -17,6 +19,21 @@ const orangeIcon = L.icon({
   shadowAnchor: [4, 62],
   popupAnchor: [-3, -76],
 });
+
+const orangeCircleIcon = (coordsList = []) => {
+  let iconSize = ((30 * coordsList.length) / 90) + 30;
+  iconSize = iconSize < 30 ? 30 : iconSize;
+  return L.icon({
+    iconUrl: OrangeCircleSvg,
+    iconSize: [iconSize || 30, iconSize || 30],
+    shadowSize: [50, 64],
+    iconAnchor: [22, 94],
+    shadowAnchor: [4, 62],
+    popupAnchor: [-3, -76],
+  });
+};
+
+
 export class OpenMap extends Component {
   state = {};
 
@@ -28,6 +45,7 @@ export class OpenMap extends Component {
     const { coordsList: newList } = this.props;
     if (!isEqual(coordsList, newList)) {
       this.addMarkers(newList);
+      this.goToCenter();
     }
   }
 
@@ -45,20 +63,45 @@ export class OpenMap extends Component {
       accessToken: 'your.mapbox.access.token',
     }).addTo(map);
     this.addMarkers(coordsList);
+    map.on('zoomend', this.handleZoom);
+    lastZoom = map.getZoom();
+  }
+
+  handleZoom = () => {
+    const zoomLevel = map.getZoom();
+    if (lastZoom !== zoomLevel) {
+      const { coordsList } = this.props;
+      this.addMarkers(coordsList);
+      lastZoom = zoomLevel;
+    }
+  }
+
+  goToCenter = () => {
+    const { coordsList } = this.props;
+    if (coordsList.length) {
+      const center = [coordsList[0].pinLat, coordsList[0].pinLon];
+      map.flyTo(center);
+    }
   }
 
   addMarkers = (coordsList) => {
+    const zoomLevel = map.getZoom();
     if (markers) {
       markers.forEach((marker) => {
         map.removeLayer(marker);
       });
     }
-    markers = coordsList.map((
-      { pinLat: lat, pinLon: lng },
-    ) => L.marker([lat, lng], { icon: orangeIcon }).addTo(map));
-    if (coordsList.length) {
-      const center = [coordsList[0].pinLat, coordsList[0].pinLon];
-      map.flyTo(center);
+    if (orangeMarker) {
+      map.removeLayer(orangeMarker);
+    }
+    if (zoomLevel >= 14) {
+      markers = coordsList.map((
+        { pinLat: lat, pinLon: lng },
+      ) => L.marker([lat, lng], { icon: orangeMarkerIcon }).addTo(map));
+    } else if (coordsList.length) {
+      orangeMarker = L.marker(
+        [coordsList[0].pinLat, coordsList[0].pinLon], { icon: orangeCircleIcon(coordsList) },
+      ).addTo(map);
     }
   }
 
