@@ -12,3 +12,4 @@ export { default as LoadingSvg } from './loading.svg';
 export { default as CloseSvg } from './close.svg';
 export { default as EyeSvg } from './eye.svg';
 export { default as OrangeMarkerSvg } from './orangeMarker.svg';
+export { default as OrangeCircleSvg } from './orangeCircle.svg';
