@@ -22,7 +22,7 @@ const orangeMarkerIcon = L.icon({
 });
 
 const orangeCircleIcon = (coordsList = []) => {
-  let iconSize = ((30 * coordsList.length) / 90) + 30;
+  let iconSize = ((30 * coordsList.length) / 200) + 30;
   iconSize = iconSize < 30 ? 30 : iconSize;
   return L.icon({
     iconUrl: OrangeCircleSvg,
