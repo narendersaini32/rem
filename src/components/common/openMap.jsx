@@ -44,7 +44,13 @@ export class OpenMap extends Component {
       id: 'mapbox/streets-v11',
       accessToken: 'your.mapbox.access.token',
     }).addTo(map);
+    map.on('zoomend', this.handleZoom);
     this.addMarkers(coordsList);
+  }
+
+  handleZoom =() => {
+    const zoomlevel = map.getZoom();
+    console.log('TCL: handleZoom -> zoomlevel', zoomlevel);
   }
 
   addMarkers = (coordsList) => {
