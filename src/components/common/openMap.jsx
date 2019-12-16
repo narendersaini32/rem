@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import geoCenter from 'geographic-center';
+import { renderToString } from 'react-dom/server';
 
-import { OrangeMarkerSvg, OrangeCircleSvg } from '../../images';
+import { OrangeMarkerSvg } from '../../images';
+import { OrangeCircle } from './orangeCircle';
 import { KEYS } from '../../keys';
 
 const { ACCESS_KEY } = KEYS;
@@ -21,18 +23,9 @@ const orangeMarkerIcon = L.icon({
   popupAnchor: [-3, -76],
 });
 
-const orangeCircleIcon = (coordsList = []) => {
-  let iconSize = ((30 * coordsList.length) / 200) + 30;
-  iconSize = iconSize < 30 ? 30 : iconSize;
-  return L.icon({
-    iconUrl: OrangeCircleSvg,
-    iconSize: [iconSize || 30, iconSize || 30],
-    shadowSize: [50, 64],
-    iconAnchor: [22, 94],
-    shadowAnchor: [4, 62],
-    popupAnchor: [-3, -76],
-  });
-};
+const orangeCircleIcon = (coordsList = []) => L.divIcon({
+  html: renderToString(<OrangeCircle coordsList={coordsList} />),
+});
 
 
 export class OpenMap extends Component {
