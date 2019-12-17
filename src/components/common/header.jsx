@@ -5,6 +5,7 @@ import { Logo } from './logo';
 import { Menu } from './menu';
 import { SearchBar } from './searchBar';
 import { AdvancedSearch } from './advancedSearch';
+import { search } from '../../modal';
 
 export class Header extends Component {
     state={ advanced: false }
@@ -31,8 +32,20 @@ export class Header extends Component {
 
     closeAdvancedSearch =() => { this.setState({ advanced: false }); }
 
+    getProperties = (data) => {
+      const { updateState } = this.props;
+      updateState({ loading: true });
+      search(data, ({ result: coordsList }) => {
+        const state = { loading: false, sidebar: true, coordsList: [] };
+        if (coordsList) {
+          state.coordsList = coordsList;
+        }
+        updateState(state);
+      });
+    }
+
     render() {
-      const { getProperties, loading } = this.props;
+      const { loading } = this.props;
       const { advanced } = this.state;
       return (
         <div
@@ -41,7 +54,7 @@ export class Header extends Component {
         >
           <Logo />
           <SearchBar
-            getProperties={getProperties}
+            getProperties={this.getProperties}
             loading={loading}
             toggleAdvancedSearch={this.toggleAdvancedSearch}
           />
@@ -57,6 +70,6 @@ export class Header extends Component {
 }
 
 Header.propTypes = {
-  getProperties: PropTypes.func.isRequired,
+  updateState: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 };

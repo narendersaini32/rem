@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
 import { generalInfo } from '../../modal';
+import { Header } from '../common';
 
 export class PropertyView extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ render() {
     !loading
       ? (
         <>
+          <Header />
           <div>
             {propertyID}
           </div>
