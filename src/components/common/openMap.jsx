@@ -105,7 +105,6 @@ export class OpenMap extends Component {
       return initialCoords;
     }
     const center = geoCenter(coordsList.map(({ pinLat: lat, pinLon: lon }) => ({ lat, lon })));
-    console.log('TCL: findCenter -> center', center);
     return center;
   }
 
