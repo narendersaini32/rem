@@ -6,7 +6,9 @@ import { renderToString } from 'react-dom/server';
 
 import { OrangeCircle } from './orangeCircle';
 import { OrangeMarker } from './orangeMarker';
+import { PropertyCard } from './propertyCard';
 import { KEYS } from '../../keys';
+import { redirectToPropertyPage } from '../../util';
 
 const { ACCESS_KEY } = KEYS;
 
@@ -86,14 +88,29 @@ export class OpenMap extends Component {
     }
     if (zoomLevel >= 14) {
       markers = coordsList.map((
-        { pinLat: lat, pinLon: lng, propertyID },
-      ) => L.marker([lat, lng], { icon: orangeMarkerIcon(propertyID) }).addTo(map));
+        obj,
+      ) => {
+        const { pinLat: lat, pinLon: lng, propertyID } = obj;
+        const marker = L.marker([lat, lng], { icon: orangeMarkerIcon(propertyID) }).addTo(map);
+        marker.bindPopup(renderToString(<PropertyCard {...obj} imgLoaded />));
+        marker.on('click', () => {
+          this.attachInfoOnClick(propertyID);
+        });
+        return marker;
+      });
     } else if (coordsList.length) {
       orangeMarker = L.marker(
         this.findCenter(), { icon: orangeCircleIcon(coordsList) },
       ).addTo(map);
     }
   }
+
+attachInfoOnClick = (id) => {
+  const ele = document.getElementById(`info-${id}`);
+  if (ele) {
+    ele.onclick = () => { redirectToPropertyPage(id); };
+  }
+}
 
   findCenter = () => {
     const { initialCoords, coordsList } = this.props;

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Image } from './image';
 import { InfoSvg, AnalyticsSvg, SaveSvg } from '../../images';
 import { TEXT } from '../../local/text';
+import { redirectToPropertyPage } from '../../util';
 
 const { COUNTY, PROPERTY_NAME, PROPERTY_ID } = TEXT;
 
@@ -27,7 +28,7 @@ export class PropertyCard extends Component {
 
   render() {
     const {
-      county, propertyID, propertyName, style, src,
+      county, propertyID, propertyName, style, src, imgLoaded,
     } = this.props;
     const onMouseEnter = () => { this.handleMarkerOnMap(propertyID, '40px'); };
     const onMouseLeave = () => { this.handleMarkerOnMap(propertyID, '30px'); };
@@ -42,6 +43,7 @@ export class PropertyCard extends Component {
           <Image
             src={src}
             className="property-image"
+            imgLoaded={imgLoaded}
           />
           <div className="property-details">
             <div className="property-id">
@@ -57,9 +59,10 @@ export class PropertyCard extends Component {
         </div>
         <div className="property-actions">
           <div
+            id={imgLoaded ? `info-${propertyID}` : ''}
             className="action"
             style={{ backgroundImage: `url(${InfoSvg})` }}
-            onClick={() => { this.redirectToPropertyPage(propertyID); }}
+            onClick={() => { redirectToPropertyPage(propertyID); }}
           />
           <div
             className="action"
@@ -81,12 +84,14 @@ PropertyCard.propTypes = {
   propertyName: PropTypes.string,
   src: PropTypes.string,
   style: PropTypes.instanceOf(Object),
+  imgLoaded: PropTypes.bool,
 };
 
 PropertyCard.defaultProps = {
   county: COUNTY,
   propertyID: PROPERTY_ID,
   propertyName: PROPERTY_NAME,
+  imgLoaded: false,
   style: {},
   src: 'https://storage.cloud.google.com/thumbnails-letcap-test/thumbnails/120217869.jpg',
 };
