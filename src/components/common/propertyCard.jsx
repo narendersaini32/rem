@@ -10,12 +10,22 @@ const { COUNTY, PROPERTY_NAME, PROPERTY_ID } = TEXT;
 export class PropertyCard extends Component {
   state = {};
 
+  redirectToPropertyPage = (id) => {
+    if (id) {
+      window.location.href = `/property/${id}`;
+    }
+  }
+
   render() {
     const {
       county, propertyID, propertyName, style, src,
     } = this.props;
     return (
-      <div className="property-card" style={style}>
+      <div
+        className="property-card"
+        style={style}
+        onClick={() => { this.redirectToPropertyPage(propertyID); }}
+      >
         <div className="main-details">
           <Image
             src={src}
