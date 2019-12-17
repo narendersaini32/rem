@@ -12,13 +12,13 @@ export class PropertyCard extends Component {
 
   render() {
     const {
-      county, propertyID, propertyName, style,
+      county, propertyID, propertyName, style, src,
     } = this.props;
     return (
       <div className="property-card" style={style}>
         <div className="main-details">
           <Image
-            src="https://storage.cloud.google.com/thumbnails-letcap-test/thumbnails/120217869.jpg"
+            src={src}
             className="property-image"
           />
           <div className="property-details">
@@ -56,6 +56,7 @@ PropertyCard.propTypes = {
   county: PropTypes.string,
   propertyID: PropTypes.string,
   propertyName: PropTypes.string,
+  src: PropTypes.string,
   style: PropTypes.instanceOf(Object),
 };
 
@@ -64,4 +65,5 @@ PropertyCard.defaultProps = {
   propertyID: PROPERTY_ID,
   propertyName: PROPERTY_NAME,
   style: {},
+  src: 'https://storage.cloud.google.com/thumbnails-letcap-test/thumbnails/120217869.jpg',
 };
