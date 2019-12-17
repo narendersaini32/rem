@@ -1,3 +1,6 @@
+const HOST = 'https://test-dot-alert-vortex-249014.appspot.com';
+
 export const API = {
-  search: 'https://test-dot-alert-vortex-249014.appspot.com/api/realestates',
+  search: `${HOST}/api/realestates`,
+  generalInfo: `${HOST}/api/realestates/`,
 };

@@ -11,12 +11,13 @@ export const Routing = () => (
       <Route path="/" exact>
         <OldHome />
       </Route>
-      <Route path="/search" exact>
+      <Route path="/search">
         <Home />
       </Route>
-      <Route path="/property/:propertyId?" exact>
-        <PropertyView />
-      </Route>
+      <Route
+        path="/property/:propertyId?"
+        component={PropertyView}
+      />
     </Switch>
   </Router>
 );
