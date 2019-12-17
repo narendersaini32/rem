@@ -4,8 +4,8 @@ import { isEqual } from 'lodash';
 import geoCenter from 'geographic-center';
 import { renderToString } from 'react-dom/server';
 
-import { OrangeMarkerSvg } from '../../images';
 import { OrangeCircle } from './orangeCircle';
+import { OrangeMarker } from './orangeMarker';
 import { KEYS } from '../../keys';
 
 const { ACCESS_KEY } = KEYS;
@@ -14,13 +14,9 @@ let map;
 let markers;
 let orangeMarker;
 let lastZoom;
-const orangeMarkerIcon = L.icon({
-  iconUrl: OrangeMarkerSvg,
-  iconSize: [30, 30],
-  shadowSize: [50, 64],
-  iconAnchor: [22, 94],
-  shadowAnchor: [4, 62],
-  popupAnchor: [-3, -76],
+
+const orangeMarkerIcon = (id) => L.divIcon({
+  html: renderToString(<OrangeMarker id={id} />),
 });
 
 const orangeCircleIcon = (coordsList = []) => L.divIcon({
@@ -90,8 +86,8 @@ export class OpenMap extends Component {
     }
     if (zoomLevel >= 14) {
       markers = coordsList.map((
-        { pinLat: lat, pinLon: lng },
-      ) => L.marker([lat, lng], { icon: orangeMarkerIcon }).addTo(map));
+        { pinLat: lat, pinLon: lng, propertyID },
+      ) => L.marker([lat, lng], { icon: orangeMarkerIcon(propertyID) }).addTo(map));
     } else if (coordsList.length) {
       orangeMarker = L.marker(
         this.findCenter(), { icon: orangeCircleIcon(coordsList) },

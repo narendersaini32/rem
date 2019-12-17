@@ -16,15 +16,28 @@ export class PropertyCard extends Component {
     }
   }
 
+  handleMarkerOnMap = (id, size) => {
+    const ele = document.getElementById(id);
+    if (ele) {
+      ele.style.width = size;
+      ele.style.height = size;
+      ele.style.backgroundSize = `${size} ${size}`;
+    }
+  }
+
   render() {
     const {
       county, propertyID, propertyName, style, src,
     } = this.props;
+    const onMouseEnter = () => { this.handleMarkerOnMap(propertyID, '40px'); };
+    const onMouseLeave = () => { this.handleMarkerOnMap(propertyID, '30px'); };
     return (
       <div
         className="property-card"
         style={style}
         onClick={() => { this.redirectToPropertyPage(propertyID); }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       >
         <div className="main-details">
           <Image
