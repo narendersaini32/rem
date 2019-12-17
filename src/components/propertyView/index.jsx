@@ -31,21 +31,25 @@ redirectToHome =() => {
   push('/');
 }
 
+updateState = (data) => {
+  this.setState(data);
+}
+
 render() {
   const { loading, details: { propertyID, propertyName } } = this.state;
   return (
-    !loading
-      ? (
-        <>
-          <Header />
-          <div>
-            {propertyID}
-          </div>
-          <div>
-            {propertyName}
-          </div>
-        </>
-      ) : ''
+    <>
+      <Header
+        updateState={this.updateState}
+        loading={loading}
+      />
+      <div>
+        {propertyID}
+      </div>
+      <div>
+        {propertyName}
+      </div>
+    </>
   );
 }
 }
