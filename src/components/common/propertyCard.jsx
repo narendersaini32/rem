@@ -35,7 +35,6 @@ export class PropertyCard extends Component {
       <div
         className="property-card"
         style={style}
-        onClick={() => { this.redirectToPropertyPage(propertyID); }}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
@@ -60,6 +59,7 @@ export class PropertyCard extends Component {
           <div
             className="action"
             style={{ backgroundImage: `url(${InfoSvg})` }}
+            onClick={() => { this.redirectToPropertyPage(propertyID); }}
           />
           <div
             className="action"
