@@ -1,34 +1,26 @@
 import React, { Component } from 'react';
 
-import { search } from '../../modal';
 import {
-  OpenMap, Header, Footer, Sidebar,
+  OpenMap, Header, Sidebar,
 } from '../common';
 
 export class Home extends Component {
     state={ coordsList: [], sidebar: false, loading: false };
 
-    getProperties = (data) => {
-      this.setState({ loading: true });
-      search(data, ({ result: coordsList }) => {
-        const state = { loading: false, sidebar: true, coordsList: [] };
-        if (coordsList) {
-          state.coordsList = coordsList;
-        }
-        this.setState(state);
-      });
-    }
-
     toggleSideBar = () => { this.setState(({ sidebar }) => ({ sidebar: !sidebar })); }
 
     closeSidebar = () => { this.setState({ sidebar: false }); }
+
+    updateState = (data) => {
+      this.setState(data);
+    }
 
     render() {
       const { coordsList, loading, sidebar } = this.state;
       return (
         <>
           <Header
-            getProperties={this.getProperties}
+            updateState={this.updateState}
             loading={loading}
           />
           <div className="container">
@@ -43,7 +35,6 @@ export class Home extends Component {
               closeSidebar={this.closeSidebar}
             />
           </div>
-          <Footer />
         </>
       );
     }

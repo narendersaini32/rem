@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 export class Image extends Component {
   constructor(props) {
     super(props);
-    const { src } = this.props;
-    this.state = { src };
+    const { src, imgLoaded } = this.props;
+    this.state = { src, imgLoaded };
   }
 
 
@@ -48,9 +48,11 @@ Image.propTypes = {
   className: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   imageWrapperClass: PropTypes.string,
+  imgLoaded: PropTypes.bool,
 };
 
 Image.defaultProps = {
   onClick: () => { },
   imageWrapperClass: '',
+  imgLoaded: false,
 };

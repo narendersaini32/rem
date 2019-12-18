@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FixedSizeList as List } from 'react-window';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 import { PropertyCard } from './propertyCard';
 import { SearchSvg, ArrowSvg } from '../../images';
@@ -54,8 +56,22 @@ export class Sidebar extends Component {
           <div className="search-result">
             {coordsList.length ? SEARCH_RESULT : NO_RESULT }
           </div>
+
+
           <div className="property-containers">
-            {coordsList.map((obj) => <PropertyCard {...obj} />)}
+            <AutoSizer>
+              {({ height, width }) => (
+                <List
+                  itemCount={coordsList.length}
+                  height={height}
+                  width={width}
+                  itemSize={100}
+                >
+                  {({ index, style }) => <PropertyCard style={style} {...coordsList[index]} />}
+                </List>
+              )}
+            </AutoSizer>
+
           </div>
         </div>
       </>

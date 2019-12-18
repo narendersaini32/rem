@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
+import geoCenter from 'geographic-center';
+import { renderToString } from 'react-dom/server';
 
-import { OrangeMarkerSvg, OrangeCircleSvg } from '../../images';
+import { OrangeCircle } from './orangeCircle';
+import { OrangeMarker } from './orangeMarker';
+import { PropertyCard } from './propertyCard';
 import { KEYS } from '../../keys';
+import { redirectToPropertyPage } from '../../util';
 
 const { ACCESS_KEY } = KEYS;
 
@@ -11,27 +16,14 @@ let map;
 let markers;
 let orangeMarker;
 let lastZoom;
-const orangeMarkerIcon = L.icon({
-  iconUrl: OrangeMarkerSvg,
-  iconSize: [30, 30],
-  shadowSize: [50, 64],
-  iconAnchor: [22, 94],
-  shadowAnchor: [4, 62],
-  popupAnchor: [-3, -76],
+
+const orangeMarkerIcon = (id) => L.divIcon({
+  html: renderToString(<OrangeMarker id={id} />),
 });
 
-const orangeCircleIcon = (coordsList = []) => {
-  let iconSize = ((30 * coordsList.length) / 90) + 30;
-  iconSize = iconSize < 30 ? 30 : iconSize;
-  return L.icon({
-    iconUrl: OrangeCircleSvg,
-    iconSize: [iconSize || 30, iconSize || 30],
-    shadowSize: [50, 64],
-    iconAnchor: [22, 94],
-    shadowAnchor: [4, 62],
-    popupAnchor: [-3, -76],
-  });
-};
+const orangeCircleIcon = (coordsList = []) => L.divIcon({
+  html: renderToString(<OrangeCircle coordsList={coordsList} />),
+});
 
 
 export class OpenMap extends Component {
@@ -96,13 +88,37 @@ export class OpenMap extends Component {
     }
     if (zoomLevel >= 14) {
       markers = coordsList.map((
-        { pinLat: lat, pinLon: lng },
-      ) => L.marker([lat, lng], { icon: orangeMarkerIcon }).addTo(map));
+        obj,
+      ) => {
+        const { pinLat: lat, pinLon: lng, propertyID } = obj;
+        const marker = L.marker([lat, lng], { icon: orangeMarkerIcon(propertyID) }).addTo(map);
+        marker.bindPopup(renderToString(<PropertyCard {...obj} imgLoaded />));
+        marker.on('click', () => {
+          this.attachInfoOnClick(propertyID);
+        });
+        return marker;
+      });
     } else if (coordsList.length) {
       orangeMarker = L.marker(
-        [coordsList[0].pinLat, coordsList[0].pinLon], { icon: orangeCircleIcon(coordsList) },
+        this.findCenter(), { icon: orangeCircleIcon(coordsList) },
       ).addTo(map);
     }
+  }
+
+attachInfoOnClick = (id) => {
+  const ele = document.getElementById(`info-${id}`);
+  if (ele) {
+    ele.onclick = () => { redirectToPropertyPage(id); };
+  }
+}
+
+  findCenter = () => {
+    const { initialCoords, coordsList } = this.props;
+    if (!coordsList.length) {
+      return initialCoords;
+    }
+    const center = geoCenter(coordsList.map(({ pinLat: lat, pinLon: lon }) => ({ lat, lon })));
+    return center;
   }
 
   render() {

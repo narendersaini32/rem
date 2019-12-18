@@ -48,13 +48,11 @@
     right: 0;
     z-index: 999999;
     height: calc(100vh - 151px);
-    overflow: auto;
     transition: all 0.5s ease;
 
     &.close-sidebar {
-        width: 0px;
+        right: -394px;
         overflow: hidden;
-        padding: 0;
     }
 
     /* width */
@@ -88,5 +86,6 @@
 
     .property-containers {
         background-color: #ffffff66;
+        height: calc(100% - 36px);
     }
 }
