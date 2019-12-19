@@ -18,3 +18,12 @@ export const generalInfo = async (id, callback) => {
     callback({ success: false });
   }
 };
+
+export const boundary = async (data, callback) => {
+  try {
+    const result = await Request.get(API.boundary, data, false);
+    callback({ success: true, result });
+  } catch {
+    callback({ success: false });
+  }
+};

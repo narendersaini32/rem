@@ -1,1 +1,1 @@
-export { search, generalInfo } from './search';
+export { search, generalInfo, boundary } from './search';
