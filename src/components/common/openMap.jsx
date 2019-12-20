@@ -59,6 +59,7 @@ export class OpenMap extends Component {
     }).addTo(map);
     this.addMarkers(coordsList);
     map.on('zoomend', this.handleZoom);
+    map.on('dragend', this.getBoundaries);
     lastZoom = map.getZoom();
     this.getBoundaries();
   }
@@ -77,18 +78,21 @@ export class OpenMap extends Component {
   }
 
   addBoundaries = () => {
+    const zoomLevel = map.getZoom();
     const { boundariesCoords } = this.state;
     if (!isEmpty(boundariesMarker)) {
       this.removeBoundaries();
     }
-    boundariesMarker = boundariesCoords.map((obj) => {
-      const { boundaries = [] } = obj || {};
-      const coords = [];
-      boundaries.forEach(({ lat, lon }) => {
-        coords.push([lat, lon]);
+    if (zoomLevel >= 16) {
+      boundariesMarker = boundariesCoords.map((obj) => {
+        const { boundaries = [] } = obj || {};
+        const coords = [];
+        boundaries.forEach(({ lat, lon }) => {
+          coords.push([lat, lon]);
+        });
+        return L.polygon(coords, { color: orangeColor }).addTo(map);
       });
-      return L.polygon(coords, { color: orangeColor }).addTo(map);
-    });
+    }
   }
 
   removeBoundaries = () => {
