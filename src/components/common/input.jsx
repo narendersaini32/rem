@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { EyeSvg } from '../../images';
 
@@ -6,12 +7,12 @@ export class Input extends Component {
     state = {}
 
     render() {
-      const { props } = this;
+      const { inputProps } = this.props;
       return (
         <div className="custom-input-container">
           <input
             className="custom-input"
-            {...props}
+            {...inputProps}
           />
           <div
             className="eye-icon"
@@ -21,3 +22,11 @@ export class Input extends Component {
       );
     }
 }
+
+Input.propTypes = {
+  inputProps: PropTypes.instanceOf(Object),
+};
+
+Input.defaultProps = {
+  inputProps: {},
+};

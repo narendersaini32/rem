@@ -16,8 +16,7 @@ export class SearchBar extends Component {
     const { current: { value } } = this.searchInput;
     if (value) {
       const { getProperties } = this.props;
-      const county = 'LOMMA'; // will be dynamic in future
-      const data = { name: value, county };
+      const data = { name: value };
       getProperties(data);
     }
   }
