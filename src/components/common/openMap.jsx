@@ -61,7 +61,6 @@ export class OpenMap extends Component {
     map.on('zoomend', this.handleZoom);
     map.on('dragend', this.getBoundaries);
     lastZoom = map.getZoom();
-    this.getBoundaries();
   }
 
   getBoundaries = () => {
