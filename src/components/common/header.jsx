@@ -35,7 +35,6 @@ export class Header extends Component {
   getProperties = (data) => {
     const { updateState } = this.props;
     // eslint-disable-next-line no-param-reassign
-    data.county = 'LOMMA'; // will be dynamic in future
     updateState({ loading: true });
     search(data, ({ result: coordsList }) => {
       const state = { loading: false, sidebar: true, coordsList: [] };
