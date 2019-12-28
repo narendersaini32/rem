@@ -85,12 +85,18 @@ export class OpenMap extends Component {
     }
     if (zoomLevel >= 16) {
       boundariesMarker = boundariesCoords.map((obj) => {
+        const { propertyID } = obj;
         const { boundaries = [] } = obj || {};
         const coords = [];
         boundaries.forEach(({ lat, lon }) => {
           coords.push([lat, lon]);
         });
-        return L.polygon(coords, { color: orangeColor }).addTo(map);
+        const marker = L.polygon(coords, { color: orangeColor }).addTo(map);
+        marker.bindPopup(renderToString(<PropertyCard {...obj} imgLoaded />));
+        marker.on('click', () => {
+          this.attachInfoOnClick(propertyID);
+        });
+        return marker;
       });
     }
   }
