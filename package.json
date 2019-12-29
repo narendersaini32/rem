@@ -4,8 +4,8 @@
   "description": "Real Estate Management",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html --open",
-    "prod":"parcel index.html --port 8081",
+    "start": "parcel index.html --port 8081",
+    "dev":"parcel index.html --open ",
     "build": "parcel build index.html"
   },
   "author": "Narender Saini",
