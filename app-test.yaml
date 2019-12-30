@@ -6,9 +6,6 @@ service: letcap-q4-live
 handlers:
 - url: /
   static_dir: dist
-- url: /(.*\.(json|ico|js))$
-    static_files: dist/\1
-    upload: dist/.*\.(json|ico|js)$
 - url: .*
   static_files: dist/index.html
   upload: dist/index.html
