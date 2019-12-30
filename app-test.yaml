@@ -9,6 +9,8 @@ handlers:
   upload: dist/index.html
 - url: /
   static_dir: dist
-
+- url: /(.*\.(svg|ttf|css|png|js))$
+    static_files: build/\1
+    upload: dist/.*\.(svg|ttf|css|png|js)$
 env_variables:
   PORT: 8081
