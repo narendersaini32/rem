@@ -3,7 +3,7 @@ steps:
   args: ["install"]
 
 - name: "gcr.io/cloud-builders/npm"
-  args: ["install", "-g", "parcel-bundler"]  
+  args: ["install", "parcel-bundler"]  
 
 - name: "gcr.io/cloud-builders/npm"
   args: ["run", "build"]  
