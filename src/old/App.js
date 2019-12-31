@@ -163,6 +163,7 @@ export default class App extends Component {
   }
 
   render() {
+    const {history:{push}} = this.props;
     let makeElementForScreen = (screenId, baseProps, atTop, forward) => {
       let screenProps = {
         ...baseProps,
@@ -184,7 +185,8 @@ export default class App extends Component {
         case 'discoverproperties':
           return (<DiscoverPropertiesScreen {...screenProps} />)
         case 'login':
-          return (<LoginScreen {...screenProps} />)
+          return (<LoginScreen {...screenProps}
+            push={push}/>)
         case 'welcome':
           return (<WelcomeScreen {...screenProps} />)
       }
