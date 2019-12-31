@@ -230,7 +230,8 @@ export default class LoginScreen extends Component {
   }
   
   finishLogin = () => {
-      this.props.appActions.goToScreen('discoverproperties');
+    window.location.href="/search"
+      // this.props.appActions.goToScreen('discoverproperties');
   }
   
   renderState1() {
