@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { isEqual, isEmpty } from 'lodash';
 import geoCenter from 'geographic-center';
 import { renderToString } from 'react-dom/server';
+import { boundary } from '../../modal';
 
 import { OrangeCircle } from './orangeCircle';
 import { OrangeMarker } from './orangeMarker';
@@ -16,7 +17,9 @@ let map;
 let markers;
 let orangeMarker;
 let lastZoom;
+let boundariesMarker = [];
 
+const orangeColor = '#e8541e';
 const orangeMarkerIcon = (id) => L.divIcon({
   html: renderToString(<OrangeMarker id={id} />),
 });
@@ -27,7 +30,7 @@ const orangeCircleIcon = (coordsList = []) => L.divIcon({
 
 
 export class OpenMap extends Component {
-  state = {};
+  state = { boundariesCoords: [] };
 
   componentDidMount() {
     this.addMap();
@@ -56,7 +59,51 @@ export class OpenMap extends Component {
     }).addTo(map);
     this.addMarkers(coordsList);
     map.on('zoomend', this.handleZoom);
+    map.on('dragend', this.getBoundaries);
     lastZoom = map.getZoom();
+  }
+
+  getBoundaries = () => {
+    const center = map.getCenter();
+    if (!isEmpty(center)) {
+      const { lat, lng: lon } = center;
+      boundary({ lat, lon }, (res) => {
+        const { result, success } = res || {};
+        if (success && !isEmpty(result)) {
+          this.setState({ boundariesCoords: result }, this.addBoundaries);
+        }
+      });
+    }
+  }
+
+  addBoundaries = () => {
+    const zoomLevel = map.getZoom();
+    const { boundariesCoords } = this.state;
+    if (!isEmpty(boundariesMarker)) {
+      this.removeBoundaries();
+    }
+    if (zoomLevel >= 16) {
+      boundariesMarker = boundariesCoords.map((obj) => {
+        const { propertyID } = obj;
+        const { boundaries = [] } = obj || {};
+        const coords = [];
+        boundaries.forEach(({ lat, lon }) => {
+          coords.push([lat, lon]);
+        });
+        const marker = L.polygon(coords, { color: orangeColor }).addTo(map);
+        marker.bindPopup(renderToString(<PropertyCard {...obj} imgLoaded />));
+        marker.on('click', () => {
+          this.attachInfoOnClick(propertyID);
+        });
+        return marker;
+      });
+    }
+  }
+
+  removeBoundaries = () => {
+    boundariesMarker.forEach((bound) => {
+      map.removeLayer(bound);
+    });
   }
 
   handleZoom = () => {
@@ -103,14 +150,19 @@ export class OpenMap extends Component {
         this.findCenter(), { icon: orangeCircleIcon(coordsList) },
       ).addTo(map);
     }
+    if (zoomLevel >= 16) {
+      this.getBoundaries();
+    } else {
+      this.removeBoundaries();
+    }
   }
 
-attachInfoOnClick = (id) => {
-  const ele = document.getElementById(`info-${id}`);
-  if (ele) {
-    ele.onclick = () => { redirectToPropertyPage(id); };
+  attachInfoOnClick = (id) => {
+    const ele = document.getElementById(`info-${id}`);
+    if (ele) {
+      ele.onclick = () => { redirectToPropertyPage(id); };
+    }
   }
-}
 
   findCenter = () => {
     const { initialCoords, coordsList } = this.props;

@@ -28,7 +28,7 @@ export class PropertyCard extends Component {
 
   render() {
     const {
-      county, propertyID, propertyName, style, src, imgLoaded,
+      propertyCounty, propertyID, propertyName, style, src, imgLoaded,
     } = this.props;
     const onMouseEnter = () => { this.handleMarkerOnMap(propertyID, '40px'); };
     const onMouseLeave = () => { this.handleMarkerOnMap(propertyID, '30px'); };
@@ -53,7 +53,7 @@ export class PropertyCard extends Component {
               {propertyName}
             </div>
             <div className="property-county">
-              {county}
+              {propertyCounty}
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@ export class PropertyCard extends Component {
 }
 
 PropertyCard.propTypes = {
-  county: PropTypes.string,
+  propertyCounty: PropTypes.string,
   propertyID: PropTypes.string,
   propertyName: PropTypes.string,
   src: PropTypes.string,
@@ -88,7 +88,7 @@ PropertyCard.propTypes = {
 };
 
 PropertyCard.defaultProps = {
-  county: COUNTY,
+  propertyCounty: COUNTY,
   propertyID: PROPERTY_ID,
   propertyName: PROPERTY_NAME,
   imgLoaded: false,

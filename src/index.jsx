@@ -10,9 +10,11 @@ export const Routing = () => (
   <>
     <Router>
       <Switch>
-        <Route path="/" exact>
-          <OldHome />
-        </Route>
+        <Route
+          path="/"
+          exact
+          component={OldHome}
+        />
         <Route path="/search">
           <Home />
         </Route>
