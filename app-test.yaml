@@ -2,25 +2,11 @@ runtime: nodejs10
 env: standard
 instance_class: F1
 service: letcap-q4-live
-
 handlers:
-- url: /
+- url: .*
   static_files: dist/index.html
   upload: dist/index.html
-
 - url: /
   static_dir: dist
-  
-- url: /.*
-  static_files: dist/index.html
-  upload: dist/index.html
-
-# handlers:
-# - url: .*
-#   static_files: dist/index.html
-#   upload: dist/index.html
-# - url: /
-#   static_dir: dist
-
 env_variables:
   PORT: 8081
