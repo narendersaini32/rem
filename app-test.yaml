@@ -4,25 +4,8 @@ instance_class: F1
 service: letcap-q4-live
 
 handlers:
-  - url: /(.*\.(png|ico|jpg|gif))$
-    static_files: dist/\1
-    upload: dist/.*\.(png|ico|jpg|gif)$
-  - url: /fonts/(.*\.(woff|woff2))$
-    static_files: dist/fonts/\1
-    upload: dist/fonts/.*\.(woff|woff2)$
-  - url: /html.js
-    static_files: dist/html.js
-    upload: dist/html.js
-  - url: /javascript.js
-    static_files: dist/javascript.js
-    upload: dist/javascript.js
-  - url: .*
-    static_files: dist/index.html
-    upload: dist/index.html
-    secure: always
-    redirect_http_response_code: 301
-  - url: /
-    static_dir: dist
+- url: .*
+  script: auto
 
 env_variables:
   PORT: 8081
