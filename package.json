@@ -4,7 +4,7 @@
   "description": "Real Estate Management",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html --port 8081",
+    "start": "node app.js",
     "dev": "parcel index.html",
     "build": "node app.js"
   },
