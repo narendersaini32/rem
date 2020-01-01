@@ -16,7 +16,7 @@ handlers:
   - url: /javascript.js
     static_files: dist/javascript.js
     upload: dist/javascript.js
-  - url: /.*
+  - url: .*
     static_files: dist/index.html
     upload: dist/index.html
     secure: always
