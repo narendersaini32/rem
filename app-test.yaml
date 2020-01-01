@@ -5,8 +5,8 @@ service: letcap-q4-live
 
 handlers:
 - url: /.*
-  static_files: build/index.html
-  upload: build/index.html
+  static_files: dist/index.html
+  upload: dist/index.html
 
 env_variables:
   PORT: 8081
