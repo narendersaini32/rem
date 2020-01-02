@@ -21,3 +21,4 @@ handlers:
 
 env_variables:
   PORT: 8081
+  JAVA_USER_OPTS: -Dfile.encoding=UTF-8
