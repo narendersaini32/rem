@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "parcel index.html",
-    "build": "node app.js"
+    "build": "parcel build index.html"
   },
   "author": "Narender Saini",
   "license": "ISC",
