@@ -10,7 +10,7 @@ handlers:
 - url: /search
   static_files: dist/index.html
   upload: dist/index.html
-- url: /property/*
+- url: /property/.*
   static_files: dist/index.html
   upload: dist/index.html
 - url: /
