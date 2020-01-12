@@ -7,27 +7,18 @@ handlers:
 - url: /
   static_files: dist/index.html
   upload: dist/index.html
-
+- url: /search
+  static_files: dist/index.html
+  upload: dist/index.html
+- url: /property/.*
+  static_files: dist/index.html
+  upload: dist/index.html
 - url: /
   static_dir: dist
-  
-- url: /.*
-  static_files: dist/index.html
-  upload: dist/index.html
-
-- url: /*/*
-  static_files: dist/index.html
-  upload: dist/index.html
-
-- url: /*/*
-  static_dir: dist
-
-# handlers:
-# - url: .*
-#   static_files: dist/index.html
-#   upload: dist/index.html
-# - url: /
-#   static_dir: dist
+- url: /(.*\.(json|ico|js|ttf))$
+  static_files: dist/\1
+  upload: dist/.*\.(json|ico|js|ttf)$ 
 
 env_variables:
   PORT: 8081
+  JAVA_USER_OPTS: -Dfile.encoding=UTF-8
