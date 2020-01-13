@@ -84,8 +84,7 @@ export class OpenMap extends Component {
     }
     if (zoomLevel >= 16) {
       boundariesMarker = boundariesCoords.map((obj) => {
-        const { propertyID } = obj;
-        const { boundaries = [] } = obj || {};
+        const { propertyID, boundaries = [] } = obj || {};
         const coords = [];
         boundaries.forEach(({ lat, lon }) => {
           coords.push([lat, lon]);
