@@ -22,7 +22,7 @@ export class AdvancedSearch extends Component {
     this.street = React.createRef();
     this.code = React.createRef();
     this.district = React.createRef();
-    this.city = React.createRef();  
+    this.city = React.createRef();
   }
 
   search = (e) => {
@@ -35,10 +35,10 @@ export class AdvancedSearch extends Component {
       id: { current: { value: id } },
       code: { current: { value: code } },
     } = this;
-    // const { year: { min: yearFrom, max: yearTo } } = this.state;
+    const { year: { min: yearfrom, max: yearto } } = this.state;
     const advance = 1;
     const data = {
-      street, id, district, name, code, city, advance ,
+      street, id, district, name, code, city, advance, yearfrom, yearto,
     };
     const { getProperties, closeAdvancedSearch } = this.props;
     getProperties(pickBy(data, identity));
@@ -90,7 +90,7 @@ export class AdvancedSearch extends Component {
           <Input
             inputProps={{
               placeholder: POSTAL_CODE,
-              ref: this.code,              
+              ref: this.code,
             }}
           />
         </div>
@@ -115,7 +115,7 @@ export class AdvancedSearch extends Component {
             </div>
             <InputRange
               maxValue={new Date().getFullYear()}
-              minValue={1965}
+              minValue={1800}
               value={year}
               onChange={(value) => this.setState({ year: value })}
             />
